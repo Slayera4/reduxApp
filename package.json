@@ -1,5 +1,5 @@
 {
-  "name": "j",
+  "name": "reduxApp",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -18,8 +18,5 @@
     "babel-preset-stage-1": "^6.24.1",
     "express": "^4.16.3",
     "webpack": "^4.12.0"
-  },
-  "devDependencies": {
-    "webpack-cli": "^3.0.3"
   }
 }
