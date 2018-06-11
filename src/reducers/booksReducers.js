@@ -1,11 +1,22 @@
 "use strict"
 //BOOKS REDUCERS
-export const booksReducers = function(state={books:[]}, action){
+export const booksReducers = function(state={
+books:[{
+    id: 1,
+    title: 'this is the book title',
+    description: "this is the book description",
+    price: 33.33
+},
+{
+    id: 2,
+    title: 'this is the second book title',
+    description: "this is the second book description",
+    price: 50
+}
+]}, action){
     switch(action.type){
-        case "POST_BOOK":
-//        let books = state.books.concat(action.payload)
-//        return {books}
-          return {books:[...state.books, ...action.payload]}
+        case "GET_BOOK":
+          return {...state, books:[...state.books]}
         case "UPDATE_BOOK":
             //Create a copy of the current array of books
             const currentBookToUpdate = [...state.books]
