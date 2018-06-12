@@ -16,7 +16,9 @@ books:[{
 ]}, action){
     switch(action.type){
         case "GET_BOOK":
-          return {...state, books:[...state.books]}
+          return {...state, books:[...state.books]}        
+        case "POST_BOOK":
+          return {books:[...state.books, ...action.payload]}
         case "UPDATE_BOOK":
             //Create a copy of the current array of books
             const currentBookToUpdate = [...state.books]
