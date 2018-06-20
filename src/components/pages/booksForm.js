@@ -9,7 +9,7 @@ class BooksForm extends React.Component{
         const book=[{
             title: findDOMNode(this.refs.title).value,
             description: findDOMNode(this.refs.description).value,
-            price: findDOMNode(this.refs.price).value,
+            price: Number(findDOMNode(this.refs.price).value),
         }]
 
         this.props.postBooks(book)

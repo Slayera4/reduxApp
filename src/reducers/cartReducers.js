@@ -83,6 +83,6 @@ export function totals(cart,payloadArr){
     }).reduce(function(a, b){
         return a + b;
     }, 0)
-    return{amount: totalAmount, qty: totalQty}
+    return{amount: Number(totalAmount), qty: totalQty}
     
 }
