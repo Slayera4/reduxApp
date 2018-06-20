@@ -11,7 +11,7 @@ books:[{
     _id: 2,
     title: 'this is the second book title',
     description: "this is the second book description",
-    price: 50
+    price: 50.22
 }
 ]}, action){
     switch(action.type){
