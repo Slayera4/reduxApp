@@ -7,6 +7,10 @@ import {logger} from 'redux-logger';
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
+import Menu from './components/menu.js';
+import Footer from './components/footer.js';
+import BookList from './components/pages/booksList';
+
 //STEP3 define reducers
 
 
@@ -18,13 +22,16 @@ const store = createStore(reducers, middleware);
     console.log('current state is: ', store.getState())
 }) */
 
-import BookList from './components/pages/booksList';
 
 render(
     <Provider store={store}>
-        <BookList/>
-    </Provider>
-    , document.getElementById('app'))
+    <div>
+    <Menu />
+    <BookList />
+    <Footer />
+    </div>
+    </Provider>, document.getElementById('app')
+   );
 
 // DISPATCH a second action
 // DELETE a book
