@@ -1,4 +1,5 @@
 "use strict"
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import { applyMiddleware, createStore } from 'redux';
 import reducers from './reducers/index';
 import { addToCart } from './actions/cartActions';
@@ -10,7 +11,9 @@ import {Provider} from 'react-redux';
 import Menu from './components/menu.js';
 import Footer from './components/footer.js';
 import BookList from './components/pages/booksList';
-
+import Cart from './components/pages/cart';
+import BooksForm from './components/pages/booksForm';
+import Main from './main';
 //STEP3 define reducers
 
 
@@ -22,15 +25,23 @@ const store = createStore(reducers, middleware);
     console.log('current state is: ', store.getState())
 }) */
 
-
-render(
+const Routes = (
     <Provider store={store}>
-    <div>
-    <Menu />
-    <BookList />
-    <Footer />
-    </div>
-    </Provider>, document.getElementById('app')
+    <Router history={browserHistory}>
+    <Route path="/" component={Main}>
+    <IndexRoute
+   component={BooksList}/>
+    <Route path="/admin"
+component={BooksForm}/>
+ <Route path="/cart"
+component={Cart}/>
+ </Route>
+ </Router>
+ </Provider>
+)
+   
+render(
+    Routes, document.getElementById('app')
    );
 
 // DISPATCH a second action
