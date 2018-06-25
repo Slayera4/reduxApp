@@ -30,7 +30,7 @@ const Routes = (
     <Router history={browserHistory}>
     <Route path="/" component={Main}>
     <IndexRoute
-   component={BooksList}/>
+   component={BookList}/>
     <Route path="/admin"
 component={BooksForm}/>
  <Route path="/cart"

@@ -60,12 +60,14 @@ export function totalsUpdateAndDelete(payloadArr){
 export function totals(cart,payloadArr){
     console.log(payloadArr)
     let totalAmount = 0
+    let totalQuty = 0
     console.log("this is the cart")
     console.log(cart)
     if(cart.length===0){
     payloadArr.map(function(book){
         const localResult = book.quantity*book.price
         totalAmount=totalAmount+localResult
+        totalQuty = totalQuty + book.quantity
         console.log(totalAmount)
     })}else{
         payloadArr.map(function(book){
@@ -73,16 +75,28 @@ export function totals(cart,payloadArr){
             totalAmount=cart.map(function(book2){
                 return book2.quantity*book2.price
             })
-            console.log("with cart"+Number(totalAmount))
             totalAmount=Number(totalAmount)+Number(localResult)
-            console.log("with new book"+totalAmount)
+        })
+
+
+        payloadArr.map(function(book){
+            const localQty = book.quantity
+            totalQuty = cart.map(function(book2){
+                return book2.quantity
+            })
+            console.log("total cart" + totalQuty)
+            console.log("total payload" + localQty)
+
+            totalQuty = Number(totalQuty) + Number(localQty)
+            console.log("total " + totalQuty)
+
         })
     }
-    const totalQty = payloadArr.map(function(qty){
+/*     const totalQty = payloadArr.map(function(qty){
         return qty.quantity;
     }).reduce(function(a, b){
         return a + b;
-    }, 0)
-    return{amount: Number(totalAmount), qty: totalQty}
+    }, 0) */
+    return{amount: Number(totalAmount), qty: totalQuty}
     
 }

@@ -27,8 +27,7 @@ export default class Menu extends React.Component {
                                 (<Badge className="badge">
                                         {this.props.cartItemsNumber}
                                     </Badge>) : ('')}
-                            <Badge
-                                className="badge">1</Badge></NavItem>
+                        </NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
