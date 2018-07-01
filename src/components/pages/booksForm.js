@@ -22,6 +22,7 @@ class BooksForm extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         const booksList =
             this.props.books.map(function (booksArr) {
                 return (
@@ -78,6 +79,6 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ postBooks, deleteBook }, dispatch)
+    return bindActionCreators({ postBooks:postBooks, deleteBook:deleteBook }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BooksForm)

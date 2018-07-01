@@ -14,11 +14,12 @@ import BookList from './components/pages/booksList';
 import Cart from './components/pages/cart';
 import BooksForm from './components/pages/booksForm';
 import Main from './main';
+import thunk from 'redux-thunk';
 //STEP3 define reducers
 
 
 //STEP 1 create store
-const middleware = applyMiddleware(logger)
+const middleware = applyMiddleware(thunk, logger)
 const store = createStore(reducers, middleware);
 
 /* store.subscribe(function () {
