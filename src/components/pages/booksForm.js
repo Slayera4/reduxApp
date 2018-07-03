@@ -22,7 +22,6 @@ class BooksForm extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         const booksList =
             this.props.books.map(function (booksArr) {
                 return (

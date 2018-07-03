@@ -4,12 +4,19 @@
 
 export function cartReducers(state={cart:[]}, action){
     switch(action.type){
+        case "GET_CART":
+        return{...state,
+        cart:action.payload,
+       
+       totalAmount:totals(state.cart, action.payload).amount,
+        totalQty: totals(state.cart, action.payload).qty
+        }
         case("ADD_TO_CART"):
         /* return{cart:[...state.cart, ...action.payload], totalAmount:totals(action.payload).amount,
             totalQty: totals(action.payload).qty
         } */
 
-        return {cart:[...state.cart, ...action.payload], totalAmount:totals(state.cart,action.payload).amount, totalQty: totals(state.cart,action.payload).qty
+        return {cart:[...action.payload], totalAmount:totals(state.cart,action.payload).amount, totalQty: totals(state.cart,action.payload).qty
         }
 
         case("DELETE_FROM_CART"):
@@ -17,23 +24,8 @@ export function cartReducers(state={cart:[]}, action){
             totalQty: totalsUpdateAndDelete(action.payload).qty}
 
         case("UPDATE_CART"):
-                    //Create a copy of the current array of books
-                    const currentBookToUpdate = [...state.cart]
-                    //Determine at wich index in books array is the book to be updated
-                    const indexToUpdate = currentBookToUpdate.findIndex(
-                        function(book){
-                            return book._id === action._id;
-                        }
-                    )
-                    const newBookToUpdate = {
-                        ...currentBookToUpdate[indexToUpdate],
-                        quantity: currentBookToUpdate[indexToUpdate].quantity + action.unit
-                    }
-        
 
-                    
-                       let cartUpdate =  [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate, ...currentBookToUpdate.slice(indexToUpdate + 1)]
-                    return {...state, cart:cartUpdate, totalAmount:totalsUpdateAndDelete(cartUpdate).amount, totalQty: totalsUpdateAndDelete(cartUpdate).qty
+                    return {...state, cart:action.payload, totalAmount:totalsUpdateAndDelete(action.payload).amount, totalQty: totalsUpdateAndDelete(action.payload).qty
                     }
     }
     return state

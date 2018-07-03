@@ -6,15 +6,13 @@ import {addToCart, updateCart} from '../../actions/cartActions'
 class BookItem extends React.Component{
 
     handleCart(){
-        const book = [{
+        const book = {
             _id:this.props._id,
             title:this.props.title,
             description: this.props.description,
             price: this.props.price,
             quantity: 1
         }
-        
-        ]
         //CHECK IF CART IS EMPTY
         if(this.props.cart.length >0){
             //CART IS NOT EMPTY
@@ -25,15 +23,15 @@ class BookItem extends React.Component{
             })
 
             if (cartIndex === -1){
-                this.props.addToCart(book)
+                this.props.addToCart(book, this.props.cart)
 
             }else{
                 //WE NEED TO UPDATE QUANTITY
-                this.props.updateCart(_id, 1)
+                this.props.updateCart(_id, 1, this.props.cart)
             }
         }else{
             //CART IS EMPTY
-            this.props.addToCart(book)
+            this.props.addToCart(book, this.props.cart)
 
         }
     }
