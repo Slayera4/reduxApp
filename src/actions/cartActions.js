@@ -6,7 +6,7 @@ let newCart = []
 export function addToCart(book) {
     newCart = [...newCart, book]
     console.log(newCart)
-      return function (dispatch) {
+    return function (dispatch) {
         axios.post("/api/cart", newCart)
             .then(function (response) {
                 dispatch({
@@ -17,11 +17,11 @@ export function addToCart(book) {
             .catch(function (err) {
 
                 dispatch({
-                    type: "ADD_TO_CART_REJECTED", 
-                    msg:  'error when adding to the cart'
+                    type: "ADD_TO_CART_REJECTED",
+                    msg: 'error when adding to the cart'
                 })
             })
-    }  
+    }
 }
 
 
@@ -34,7 +34,7 @@ export function getCart() {
                     type: "GET_CART",
                     payload: response.data
                 })
-                newCart=response.data
+                newCart = response.data
                 console.log(newCart)
             })
             .catch(function (err) {
@@ -77,5 +77,20 @@ export function updateCart(_id, unit, cart) {
 }
 
 export function deleteFromCart(cart) {
-    return { type: "DELETE_FROM_CART", payload: cart }
+    return function (dispatch) {
+        axios.post("/api/cart", cart)
+            .then(function (response) {
+                dispatch({
+                    type: "DELETE_FROM_CART",
+                    payload: response.data
+                })
+            })
+            .catch(function (err) {
+
+                dispatch({
+                    type: "DELETE_CART_ITEM_REJECTED",
+                    msg: 'error when deleting an item from thecart'
+                })
+            })
+    }
 }
