@@ -108,6 +108,32 @@ app.put('/books/:_id', function (req, res) {
       res.json(books);
     })
 })
+
+
+
+app.get('/images', function(req, res){
+  const imgFolder = __dirname + '/public/images/';
+  //REQUIRE FILE SYSTEM
+  const fs = require('fs');
+
+  //READ ALL FILES IN THE DIRECTORY
+  fs.readdir(imgFolder, function(err, files){
+    if(err){
+      return console.log(err)
+    }
+
+    const filesArr = []
+    var i = 1;
+    //ITERATE ALL IMAGES IN THE DIRECTORY AND ADD TO THE ARRAY
+
+    files.forEach(function(file){
+      filesArr.push({name:file})
+      i++
+    })
+
+    res.json(filesArr);
+  })
+})
 //END APIs
 
 
