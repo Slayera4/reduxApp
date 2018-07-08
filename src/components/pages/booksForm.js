@@ -2,27 +2,36 @@ import React from 'react'
 import { Well, Panel, FormControl, InputGroup, DropdownButton, MenuItem, Image, Col, Row, FormGroup, ControlLabel, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { postBooks, deleteBook , getBooks} from '../../actions/booksActions'
+import { postBooks, deleteBook, getBooks, resetButton } from '../../actions/booksActions'
 import axios from 'axios';
 import { findDOMNode } from 'react-dom';
 class BooksForm extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-           images:[{}],
-           img:'' 
+            images: [{}],
+            img: ''
         }
     }
 
-    componentDidMount(){
+    resetForm() {
+        this.props.resetButton
+        //RESET THE BUTTON
+        findDOMNode(this.refs.title).value = ""
+        findDOMNode(this.refs.description).value = ""
+        findDOMNode(this.refs.price).value = ""
+        this.setState({ img: '' })
+    }
+
+    componentDidMount() {
         this.props.getBooks()
         //GET IMAGES FROM API
 
-        axios.get('/api/images').then((response)=>{
-            this.setState({images:response.data})
-        }).catch((err)=>{
-            this.setState({images:'error loading image files from server'})
+        axios.get('/api/images').then((response) => {
+            this.setState({ images: response.data })
+        }).catch((err) => {
+            this.setState({ images: 'error loading image files from server' })
         })
     }
 
@@ -43,16 +52,16 @@ class BooksForm extends React.Component {
         this.props.deleteBook(bookId)
     }
 
-    handleSelect(img){
+    handleSelect(img) {
         console.log(img)
         this.setState({
-            img:'/images/'+img
+            img: '/images/' + img
         })
 
     }
 
     render() {
-        const the=this;
+        const the = this;
         const booksList =
             this.props.books.map(function (booksArr) {
                 return (
@@ -61,11 +70,11 @@ class BooksForm extends React.Component {
                 )
             })
 
-            const imgList = this.state.images.map(function(imgArr, i){
-                return(
-                    <MenuItem key={i} eventKey={imgArr.name} onClick={()=>the.handleSelect(imgArr.name)}>{imgArr.name}</MenuItem>
-                )
-            })
+        const imgList = this.state.images.map(function (imgArr, i) {
+            return (
+                <MenuItem key={i} eventKey={imgArr.name} onClick={() => the.handleSelect(imgArr.name)}>{imgArr.name}</MenuItem>
+            )
+        })
         return (
             <Well>
                 <Row>
@@ -73,7 +82,7 @@ class BooksForm extends React.Component {
                         <Panel>
                             <Panel.Body>
                                 <InputGroup>
-                                    <FormControl type="text" ref="image" value={this.state.img}/>
+                                    <FormControl type="text" ref="image" value={this.state.img} />
                                     <DropdownButton
                                         componentClass={InputGroup.Button}
                                         id="input-dropdown-addon"
@@ -83,7 +92,7 @@ class BooksForm extends React.Component {
                                         {imgList}
                                     </DropdownButton>
                                 </InputGroup>
-                                <Image src={this.state.img} responsive/>
+                                <Image src={this.state.img} responsive />
                             </Panel.Body>
                         </Panel>
                     </Col>
@@ -102,9 +111,11 @@ class BooksForm extends React.Component {
                                     <ControlLabel>Price</ControlLabel>
                                     <FormControl type="text" placeholder="Enter Price" ref="price" />
                                 </FormGroup>
-                                <Button onClick={this.handleSubmit.bind(this)} bsStyle='primary'>
-                                    Save book
-                        </Button>
+                                <Button
+                                    onClick={(!this.props.msg) ? (this.handleSubmit.bind(this)) : (this.resetForm.bind(this))}
+                                    bsStyle={(!this.props.style) ? ("primary") : (this.props.style)}>
+                                    {(!this.props.msg) ? ("Save book") : (this.props.msg)}
+                                </Button>
                             </Panel.Body>
                         </Panel>
                         <Panel>
@@ -128,16 +139,18 @@ class BooksForm extends React.Component {
                     </Col>
                 </Row>
 
-            </Well>
+            </Well >
         )
     }
 }
 function mapStateToProps(state) {
     return {
-        books: state.books.books
+        books: state.books.books,
+        msg: state.books.msg,
+        style: state.books.style
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ postBooks: postBooks, deleteBook: deleteBook , getBooks:getBooks}, dispatch)
+    return bindActionCreators({ postBooks: postBooks, deleteBook: deleteBook, getBooks: getBooks, resetButton: resetButton }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BooksForm)

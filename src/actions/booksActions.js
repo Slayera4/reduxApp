@@ -61,3 +61,8 @@ export function deleteBook(id) {
 export function updateBook(book) {
     return { type: "UPDATE_BOOK", payload: book }
 }
+
+//UPDATE A BOOK
+export function resetButton() {
+    return { type: "RESET_BUTTON"}
+}

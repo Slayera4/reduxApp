@@ -6,7 +6,11 @@ books:[]}, action){
         case "GET_BOOK":
           return {...state, books:[...action.payload]}        
         case "POST_BOOK":
-          return {books:[...state.books, ...action.payload]}
+          return {books:[...state.books, ...action.payload], msg:'Saved! Click to continue', style:'success'}
+        case "POST_BOOK_REJECTED":
+          return {...state, msg:'Please, try again', style: 'danger'}
+        case "RESET_BUTTON":
+          return {...state, msg:null, style: 'primary'}
         case "UPDATE_BOOK":
             //Create a copy of the current array of books
             const currentBookToUpdate = [...state.books]
