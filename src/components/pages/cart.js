@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Panel, Col, Row, Well, Button, ButtonGroup, Label, Modal } from 'react-bootstrap';
-import { deleteFromCart, updateCart, getCart } from '../../actions/cartActions'
-import { bindActionCreators } from 'C:/Users/Slasher/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react-redux/node_modules/redux';
+import { deleteFromCart, updateCart, getCart } from '../../actions/cartActions';
+import { bindActionCreators } from 'redux';
 
 class Cart extends React.Component {
     componentDidMount(){
