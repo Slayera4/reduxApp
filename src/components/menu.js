@@ -1,5 +1,6 @@
 import React from 'react'
 import { Nav, NavItem, Navbar, Badge } from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 export default class Menu extends React.Component {
     render() {
@@ -13,14 +14,21 @@ export default class Menu extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
+                        <LinkContainer to="/about">
                         <NavItem eventKey={1}
                             href="/about">About</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/contact">
                         <NavItem eventKey={2}
                             href="/contacts">Contact Us</NavItem>
+                        </LinkContainer>
                     </Nav>
                     <Nav pullRight>
+                        <LinkContainer to="/admin">
                         <NavItem eventKey={1}
                             href="/admin">Admin</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/cart">
                         <NavItem eventKey={2}
                             href="/cart">Your Cart {(this.props.cartItemsNumber > 0)
                                 ?
@@ -28,6 +36,7 @@ export default class Menu extends React.Component {
                                         {this.props.cartItemsNumber}
                                     </Badge>) : ('')}
                         </NavItem>
+                                </LinkContainer>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

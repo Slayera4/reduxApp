@@ -5,9 +5,6 @@ import { deleteFromCart, updateCart, getCart } from '../../actions/cartActions';
 import { bindActionCreators } from 'redux';
 
 class Cart extends React.Component {
-    componentDidMount(){
-        this.props.getCart()
-    }
     constructor() {
         super();
         this.state = {
